@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  library-service:
+    image: my-library-service
+    build: 
+      context: ./book_catalog
+      dockerfile: Dockerfile
+    container_name: library-service
+    ports:
+     - "4000:4000"  # Mapping internal port 4000 to external port 4000
+    environment:
+      - PORT=4000
+      - DATABASE_URL=postgresql://week09_m9m4_user:QNAS4IhQVijSlkGr5d3FkR62P9HYSkUx@dpg-crh5jhl6l47c73c2u1ag-a.oregon-postgres.render.com/week09_m9m4
+    restart: "no"  # Restart policy set to "no"
+
+  inventory-service:
+    image: my-inventory-service
+    build: 
+      context: ./inventory_management
+      dockerfile: Dockerfile
+    container_name: inventory-service
+    ports:
+     - "5000:5000"  # Mapping internal port 5000 to external port 5000
+    environment:
+      - PORT=5000
+      - DATABASE_URL=postgresql://week09_m9m4_user:QNAS4IhQVijSlkGr5d3FkR62P9HYSkUx@dpg-crh5jhl6l47c73c2u1ag-a.oregon-postgres.render.com/week09_m9m4
+    restart: "no"  # Restart policy set to "no"
